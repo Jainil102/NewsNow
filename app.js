@@ -70,6 +70,21 @@ var retrieve = function (topic) {
     document.getElementById('container2').style.display = "none";
     document.getElementById('seemore').style.display = "block";
 
+    let heading1 = topic
+
+    if(topic == 'politics') topic = 'business';
+    if(topic == 'international') topic = 'technology';
+    if(topic == 'finance') topic = 'business';
+    if(topic == 'climate') topic = 'health';
+    if(topic == 'travel') topic = 'sports';
+    if(topic == 'jobs') topic = 'business';
+    if(topic == 'media') topic = 'technology';
+    if(topic == 'culture') topic = 'health';
+    if(topic == 'game') topic = 'sports';
+    if(topic == 'art') topic = 'technology';
+    if(topic == 'kids') topic = 'sports'; 
+    if(topic == 'administration') topic = 'business';
+
     let url1 = ``;
     if (topic == 'trending') {
         url1 = `https://saurav.tech/NewsAPI/top-headlines/category/general/in.json`;
@@ -79,7 +94,7 @@ var retrieve = function (topic) {
         url1 = `https://saurav.tech/NewsAPI/top-headlines/category/${topic}/in.json`;
     }
 
-    heading.innerHTML = topic.toUpperCase();
+    heading.innerHTML = heading1.toUpperCase();
 
     fetch(url1).then((res) => {
         return res.json()
@@ -475,97 +490,97 @@ xhr.onload = function () {
 xhr.send()
 
 
-// Weather API
-// SELECT ELEMENTS
-const iconElement = document.querySelector(".weather-icon");
-const tempElement = document.querySelector(".temperature-value p");
-const descElement = document.querySelector(".temperature-description p");
-const locationElement = document.querySelector(".location p");
-const notificationElement = document.querySelector(".notification");
+// // Weather API
+// // SELECT ELEMENTS
+// const iconElement = document.querySelector(".weather-icon");
+// const tempElement = document.querySelector(".temperature-value p");
+// const descElement = document.querySelector(".temperature-description p");
+// const locationElement = document.querySelector(".location p");
+// const notificationElement = document.querySelector(".notification");
 
-// App data
-const weather = {};
+// // App data
+// const weather = {};
 
-weather.temperature = {
-    unit: "celsius"
-}
+// weather.temperature = {
+//     unit: "celsius"
+// }
 
-// APP CONSTS AND VARS
-const KELVIN = 273;
-// API KEY
-const key = "82005d27a116c2880c8f0fcb866998a0";
+// // APP CONSTS AND VARS
+// const KELVIN = 273;
+// // API KEY
+// const key = "82005d27a116c2880c8f0fcb866998a0";
 
-// CHECK IF BROWSER SUPPORTS GEOLOCATION
-if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition(setPosition, showError);
-} else {
-    notificationElement.style.display = "block";
-    notificationElement.innerHTML = "<p>Browser doesn't Support Geolocation</p>";
-}
+// // CHECK IF BROWSER SUPPORTS GEOLOCATION
+// if ('geolocation' in navigator) {
+//     navigator.geolocation.getCurrentPosition(setPosition, showError);
+// } else {
+//     notificationElement.style.display = "block";
+//     notificationElement.innerHTML = "<p>Browser doesn't Support Geolocation</p>";
+// }
 
-// SET USER'S POSITION
-function setPosition(position) {
-    let latitude = position.coords.latitude;
-    let longitude = position.coords.longitude;
+// // SET USER'S POSITION
+// function setPosition(position) {
+//     let latitude = position.coords.latitude;
+//     let longitude = position.coords.longitude;
 
-    getWeather(latitude, longitude);
-}
+//     getWeather(latitude, longitude);
+// }
 
-// SHOW ERROR WHEN THERE IS AN ISSUE WITH GEOLOCATION SERVICE
-function showError(error) {
-    notificationElement.style.display = "block";
-    notificationElement.innerHTML = `<p> ${error.message} </p>`;
-}
+// // SHOW ERROR WHEN THERE IS AN ISSUE WITH GEOLOCATION SERVICE
+// function showError(error) {
+//     notificationElement.style.display = "block";
+//     notificationElement.innerHTML = `<p> ${error.message} </p>`;
+// }
 
-// GET WEATHER FROM API PROVIDER
-function getWeather(latitude, longitude) {
-    let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+// // GET WEATHER FROM API PROVIDER
+// function getWeather(latitude, longitude) {
+//     let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
 
-    fetch(api)
-        .then(function (response) {
-            let data = response.json();
-            return data;
-        })
-        .then(function (data) {
-            weather.temperature.value = Math.floor(data.main.temp - KELVIN);
-            weather.description = data.weather[0].description;
-            weather.iconId = data.weather[0].icon;
-            weather.city = data.name;
-            weather.country = data.sys.country;
-        })
-        .then(function () {
-            displayWeather();
-        });
-}
+//     fetch(api)
+//         .then(function (response) {
+//             let data = response.json();
+//             return data;
+//         })
+//         .then(function (data) {
+//             weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+//             weather.description = data.weather[0].description;
+//             weather.iconId = data.weather[0].icon;
+//             weather.city = data.name;
+//             weather.country = data.sys.country;
+//         })
+//         .then(function () {
+//             displayWeather();
+//         });
+// }
 
-// DISPLAY WEATHER TO UI
-function displayWeather() {
-    // iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
-    tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
-    descElement.innerHTML = weather.description;
-    locationElement.innerHTML = `${weather.city}, ${weather.country}`;
-}
+// // DISPLAY WEATHER TO UI
+// function displayWeather() {
+//     // iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
+//     tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+//     descElement.innerHTML = weather.description;
+//     locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+// }
 
-// C to F conversion
-function celsiusToFahrenheit(temperature) {
-    return (temperature * 9 / 5) + 32;
-}
+// // C to F conversion
+// function celsiusToFahrenheit(temperature) {
+//     return (temperature * 9 / 5) + 32;
+// }
 
-// WHEN THE USER CLICKS ON THE TEMPERATURE ELEMENET
-tempElement.addEventListener("click", function () {
-    if (weather.temperature.value === undefined) return;
+// // WHEN THE USER CLICKS ON THE TEMPERATURE ELEMENET
+// tempElement.addEventListener("click", function () {
+//     if (weather.temperature.value === undefined) return;
 
-    if (weather.temperature.unit == "celsius") {
-        let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
-        fahrenheit = Math.floor(fahrenheit);
+//     if (weather.temperature.unit == "celsius") {
+//         let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
+//         fahrenheit = Math.floor(fahrenheit);
 
-        tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
-        weather.temperature.unit = "fahrenheit";
-    } else {
-        tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
-        weather.temperature.unit = "celsius"
-    }
-});
+//         tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
+//         weather.temperature.unit = "fahrenheit";
+//     } else {
+//         tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+//         weather.temperature.unit = "celsius"
+//     }
+// });
 
 // NewsLetterForm
 
@@ -573,33 +588,7 @@ const submit = document.querySelector('.submit');
 const email = document.querySelector('.email');
 
 submit.addEventListener("click", () => {
-    // Email.send({
-    //     Host: "smtp.gmail.com",
-    //     Username: "hw405908@gmail.com",
-    //     Password: "fyujjpngdicoxekp",
-    //     To: email.value,
-    //     From: "hw405908@gmail.com",
-    //     Subject: "NewsNow Newsletter!",
-    //     Body: "Thankyou for subscribing to our newsletter!!",
-    //     Attachments: [
-    //         {
-    //             name: "newsletter.png",
-    //             path: "https://binaries.templates.cdn.office.net/support/templates/en-us/lt22618618_quantized.png"
-    //         }]
-    // }).then(
-    //     message => {
-    //         if (message == 'OK') {
-    //             let toastLiveExample = document.getElementById('liveToast')
-    //             let text = document.getElementById('toast');
-    //             text.innerHTML = "You have subscribed to our newsletter successfullt";
-    //             let toast = new bootstrap.Toast(toastLiveExample)
-    //             toast.show()
-    //         }
-    //         else {
-    //             console.log(message);
-    //         }   
-    //     });
-
+    
     Email.send({
         Host: "smtp.mailtrap.io",
         Username: "cc7189f1de01e2",
