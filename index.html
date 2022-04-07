@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark" id="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="general" href="#">N E W S N O W</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <!-- Change Start -->
+          <!-- <li class="nav-item" style="padding-right: 35px;">
+            <a class="nav-link active" id="trending" aria-current="page" href="#">COVID-19
+              <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                style="font-size: 10px; margin-left: 22px; margin-top: 2px;">
+                Trending
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </a>
+          </li> -->
+          <!-- Change End -->
+          <li class="nav-item">
+            <a class="nav-link active" id="general1" aria-current="page" href="#">HOME
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="business" aria-current="page" href="#">BUSINESS
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="health" aria-current="page" href="#">HEALTH</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="science" aria-current="page" href="#">SCIENCE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="sports" aria-current="page" href="#">SPORTS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="technology" aria-current="page" href="#">TECHNOLOGY</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" id="about-us" aria-current="page" href="#">ABOUT US</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <form class="d-flex search-form" id="search-form">
+      <input class="form-control me-2 input" type="text" placeholder="Search" aria-label="Search"
+        style="min-width: 40px">
+      <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+        title="Sorry currently disabled because NewsAPI doesn't allow to fetch news while hosting in their free subscription model">
+        <button class="btn btn-outline-light" id="search" type="submit" disabled>Search</button>
+      </span>
+    </form>
+  </nav>
+
+  <!-- weather -->
+  <div class="after-nav">
+    <div class="notification">
+    </div>
+    <div class="w-container">
+      <!-- Marquee added -->
+      <div class="item-1">
+        <div id="marquee-cont">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="50px">
+                <button id="ticker-title">Trending</button>
+              </td>
+              <td id="marquee">
+                <marquee onmouseover="this.stop();" onmouseout="this.start();" id='scroll'>
+                  Trending News ->
+                </marquee>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- <div class="item-2">
+        <div class="notification"> </div>
+        <div class="temperature-value">
+          <p>- °<span>C</span></p>
+        </div>
+        <div class="temperature-description">
+          <p> - </p>
+        </div>
+        <div class="location">
+          <p>-</p>
+        </div>
+
+      </div> -->
+
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="spinner-border" id="loading" role="status"
+    style="width: 3rem; height: 3rem; margin: 20% 50%; display: block; color: rgb(66, 3, 3);">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+
+  <!-- News Body -->
+  <main class="main-body" id="body">
+    <!-- Category -->
+    <div class="sidebar" id="sidebar" style="display: block;">
+      <div class="card">
+        <div class="card-body" id="categories">
+          <h2 class="categories">Category</h2>
+          <ul class="vertical-menu">
+            <div class="categorical-features">
+              <li class="menu-li"><a href="#" class="menu-links" id="politics">Politics</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="international">International</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="finance">Finance</a></li>
+            </div>
+
+            <div class="categorical-features">
+              <li class="menu-li"><a href="#" class="menu-links" id="climate">Climate</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="travel">Travel</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="jobs">Jobs</a></li>
+            </div>
+
+            <div class="categorical-features">
+              <li class="menu-li"><a href="#" class="menu-links" id="media">Media</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="administration">Administration</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="culture">Culture</a></li>
+            </div>
+
+            <div class="categorical-features">
+              <li class="menu-li"><a href="#" class="menu-links" id="game">Game</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="art">Art</a></li>
+              <li class="menu-li"><a href="#" class="menu-links" id="kids">Kids</a></li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <section class="right-body" id="rightbody" style="display: block;">
+      <!-- Carousel -->
+      <div class="section1" id="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+              aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+              aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+              aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner" id="carousel-inner">
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- News -->
+      <div class="container1">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1 class="mb-4" id="heading">
+                  </h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-8" id="news-card">
+                </div>
+                <div class="col-lg-4">
+                  <h2 class="mb-4 font-weight-600">
+                    <b>Latest news</b>
+                  </h2>
+                  <div id="lat-news">
+                  </div>
+                  <div class="trending">
+                    <br><br>
+                    <h2 class="mb-4 font-weight-600">
+                      <b>Trending</b>
+                    </h2>
+                    <div id="trend-news">
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-outline-info style-7" id="seemore"
+                    style="margin-left: 25vw; width: 25vw;">See
+                    More</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- See More -->
+      <div class="container2" id="container2" style="display: none; margin-top: 5px">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12" id="see-more-news">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- About Us  -->
+  <div class="a-container" id="about" style="display: none">
+    <div class="a-about-us">
+      <div class="a-who-we-are">
+        <h1><b>About Us</b></h1>
+      </div>
+      <div class="a-cards">
+        <div class="a-card">
+          <figure class="snip0013">
+            <img src="https://hansalshah007.github.io/osvirtuallab/images/JP.png" alt="sample32" />
+            <div>
+              <a href="https://github.com/Jainil102"><i class="ion-social-github"></i></a>
+              <a href="https://www.linkedin.com/in/jainil-patel-453a071aa/"><i class="ion-social-linkedin"></i></a>
+            </div>
+          </figure>
+          <div class="a-card-body">
+            <h3 class="text-center">Jainil Patel</h3>
+            <p class="text-center" style="color: black;">Web developer</p>
+          </div>
+        </div>
+
+        <div class="a-card">
+          <figure class="snip0013">
+            <!-- <img src="https://i.ibb.co/ZxMvLH1/DJ-2.png" alt="sample32" /> -->
+            <img src="https://hansalshah007.github.io/osvirtuallab/images/DJ.png" alt="sample32"
+              style="height: 225px;" />
+            <div>
+              <a href="https://github.com/DivyanshJain92"><i class="ion-social-github"></i></a>
+              <a href="https://www.linkedin.com/in/DivyanshJain92/"><i class="ion-social-linkedin"></i></a>
+            </div>
+          </figure>
+          <div class="a-card-body">
+            <h3 class="text-center">Divyansh Jain</h3>
+            <p class="text-center" style="color: black;">Web developer</p>
+          </div>
+        </div>
+
+        <div class="a-card">
+          <figure class="snip0013">
+            <img src="https://hansalshah007.github.io/osvirtuallab/images/DM.png" alt="sample32" />
+            <div>
+              <a href="https://github.com/DivyanshMahida127"><i class="ion-social-github"></i></a>
+              <a href="https://www.linkedin.com/in/divyansh-mahida-77670a1b7"><i class="ion-social-linkedin"></i></a>
+            </div>
+          </figure>
+          <div class="a-card-body">
+            <h3 class="text-center">Divyansh Mahida</h3>
+            <p class="text-center" style="color: black;">Web developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-top">
+      <div class="footer-container" id="normal-container">
+        <div class="row" id="footer-main-block">
+          <div class="col-sm-5" id="footer-block">
+            <h3 class="font-weight-bold mb-3"
+              style="font-family: 'Source Sans Pro', sans-serif; font-size: 28px; font-weight: 600;">N E W S N O W</h3>
+            <h5 class="font-weight-normal mt-0 mb-2"
+              style="font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 300;">
+              At NewsNow we believe there's a better way to read News. Providing simple yet exlcusive, all headlines
+              from various published sources under one roof . We were founded in 2021 as a digital multimedia company.
+            </h5>
+            <h3 class="mb-2" id="footer-headings" style="margin-top: auto">Follow us on:</h3>
+            <ul class="sm mb-2">
+              <li class="foot">
+                <a href="#" class="fa fa-facebook"></a>
+              </li>
+              <li class="foot">
+                <a href="#" class="fa fa-twitter"></a>
+              </li>
+              <li class="foot">
+                <a href="#" class="fa fa-instagram"></a>
+              </li>
+              <li class="foot">
+                <a href="#" class="fa fa-linkedin"></a>
+              </li>
+            </ul>
+            <h3 class="mb-2" id="footer-headings">Download our App:</h3>
+            <ul class="sm">
+              <li class="foot">
+                <a href="#" class="fa fa-android"></a>
+              </li>
+              <li class="foot">
+                <a href="#" class="fa fa-apple"></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-5" id="footer-block">
+            <form id="contact-form" name="contact-form" onsubmit="return false">
+              <h3 class="font-weight-bold mb-3" id="footer-headings">Contact Us:</h3>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="md-form mb-4">
+                    <input type="text" id="contact-name" name="name" class="form-control contact-name"
+                      placeholder="Name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="md-form mb-4">
+                    <input type="email" id="contact-email" name="email" class="form-control contact-email"
+                      placeholder="Email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="md-form mb-4">
+                    <input type="text" id="contact-subject" name="subject" class="form-control contact-subject"
+                      placeholder="Subject">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+
+                  <div class="md-form mb-4">
+                    <textarea type="text" id="contact-message" name="message" rows="4"
+                      class="form-control md-textarea contact-message" placeholder="Message"></textarea>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row" style="width: 90px">
+                <div class="col-md-12">
+                  <button class="btn btn-outline-light contact-submit" id="contact-submit" type="submit">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-container" id="normal-container">
+        <div class="row" id="footer-main-block">
+          <div class="d-sm-flex justify-content-evenly" id="bottom-footer-content" style="padding: 0px 0px">
+            <div class="col-sm-5" id="footer-block-bottom">
+              <div class="fs-14 font-weight-600" id="bottom-footer-line">
+                <br>
+                © 2001 @ NEWSNOW. All rights reserved.
+              </div>
+            </div>
+            <div class="col-sm-5" id="footer-block-bottom" style="margin-bottom: auto">
+              <h3 class="font-weight-bold mb-3" id="footer-headings">Subscribe to our newsletter:</h3>
+
+              <form onsubmit="return false" class="d-flex newsletter" id="newsletter">
+                <input class="form-control me-2 input email" id="email" type="email" placeholder="E-mail"
+                  aria-label="email-form" style="min-width: 40px">
+                <button class="btn btn-outline-light submit" id="email-submit" type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body" id="toast">
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="app.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script>
+  AOS.init();
+</script>
+
+
+</html>
+
+<!-- API Key -> 4129cf0533b54a73a032d9eaf3c092e8 -->
+<!-- API Key -> 06b04060de0c4044b8d2488ebc8e83b9 -->
+<!-- API Key -> f0b2072d622545218810fa00d338d2c7 -->
